@@ -42,7 +42,7 @@ const index = () => {
           <Link className={``} href={"/ride-history"}>
             Your Rides
           </Link>
-          <Link className={``} href={"/login"}>
+          <Link className={``} href={"/auth/register"}>
             Login / Register
           </Link>
         </div>
