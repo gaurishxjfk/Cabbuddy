@@ -1,19 +1,31 @@
 "use client";
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 
 import InputText from "../InpComp/InputText";
 import Link from "next/link";
 import { LoginInitialState, loginReducer } from "@/lib/appReducer";
+import axios from "axios";
 
 const Login = () => {
   const [state, dispatch] = useReducer(loginReducer, LoginInitialState);
+  const [errMsg, setErrMsg] = useState("")
 
   const handleChange = (field: string, value: string, error: boolean) => {
     console.log("hosana", value);
     dispatch({ type: "CHANGE_INPUT", field, value, error });
   };
+  const onLogin = async () => {
+    try {
+      const response = await axios.post("/api/users/login", state);
+      setErrMsg("")
+      console.log("hehehehe", response.data.message);
+    } catch (error: any) {
+      console.log("heheheh22e", error.response.data.error);
+      setErrMsg(error.response.data.error)
+    }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  };
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Check if any field is empty
     Object.entries(state).forEach(([key, value]) => {
@@ -24,6 +36,12 @@ const Login = () => {
         error: value.value.length === 0,
       });
     });
+    const checkIfError = Object.values(state).some(
+      ({ value, error }) => error === true || value.length === 0
+    );
+    if (!checkIfError) {
+      await onLogin();
+    }
   };
   return (
     <section className="w-[80%] md:w-1/2 mx-auto">
@@ -56,12 +74,14 @@ const Login = () => {
             errormsg="Password should be atleast 6 characters"
           />
         </div>
+        <p className="text-red-500 text-sm">{errMsg}</p>
         <button
           type="submit"
           className="bg-darkText py-2 mt-3 rounded-lg text-white font-bold w-1/2"
         >
           Login
         </button>
+        
         <div>
           Dont have an account?{" "}
           <Link href="/auth/register" className="text-cyan-800">

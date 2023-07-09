@@ -66,3 +66,12 @@ export interface UserRegisterAction {
   value: string;
   error: boolean;
 }
+
+interface Session {
+  user: {
+    id: number;
+    name: string;
+    email: string;
+    accessToken: string;
+  };
+}

@@ -1,19 +1,31 @@
 "use client";
-import React, { useReducer } from "react";
-
+import React, { useReducer, useState } from "react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import InputText from "../InpComp/InputText";
 import Link from "next/link";
 import { initialState, reducer } from "@/lib/appReducer";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const Register = () => {
+  const router = useRouter();
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [errMsg, setErrMsg] = useState("");
 
   const handleChange = (field: string, value: string, error: boolean) => {
     console.log("hosana", value);
     dispatch({ type: "CHANGE_INPUT", field, value, error });
   };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const onRegister = async () => {
+    try {
+      const response = await axios.post("/api/users/register", state);
+      console.log("hehehehe", response);
+    } catch (error: any) {
+      console.log("heheheh22e", error.response.data.error);
+      setErrMsg(error.response.data.error);
+    }
+  };
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Check if any field is empty
     Object.entries(state).forEach(([key, value]) => {
@@ -45,8 +57,14 @@ const Register = () => {
         });
       }
     });
+
+    const checkIfError = Object.values(state).some(
+      ({ value, error }) => error === true || value.length === 0
+    );
+    if (!checkIfError) {
+      await onRegister();
+    }
   };
-  console.log(state.fname.value, "tuh");
   return (
     <section className="w-[80%] md:w-1/2 mx-auto">
       <h1 className="text-center bg-white p-4 md:px-8 rounded-xl shadow-2xl text-darkText text-xl font-bold mb-2">
@@ -115,6 +133,7 @@ const Register = () => {
             errormsg="Passwords are not matching"
           />
         </div>
+        <p className="text-red-500 text-sm">{errMsg}</p>
         <button
           type="submit"
           className="bg-darkText py-2 mt-3 rounded-lg text-white font-bold w-1/2"
