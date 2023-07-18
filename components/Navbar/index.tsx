@@ -1,11 +1,13 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import  {Encode_Sans_Semi_Condensed}  from "next/font/google";
-import React, { useState } from "react";
+import { Encode_Sans_Semi_Condensed } from "next/font/google";
+import React, { useEffect, useState } from "react";
 
 import cabbuddy from "@/public/assets/icons/cabbuddy.svg";
 import HambergerMenu from "./HambergerMenu";
+import { appStore } from "@/lib/appStore";
+import axios from "axios";
 
 const workSans = Encode_Sans_Semi_Condensed({
   subsets: ["latin"],
@@ -13,7 +15,24 @@ const workSans = Encode_Sans_Semi_Condensed({
 });
 
 const index = () => {
+  const { updateUserInfo, userInfo } = appStore((state) => state);
   const [open, setOpen] = useState(false);
+  const getUserDetails = async () => {
+    console.log("its goinggg");
+    try {
+      const res = await axios.get("/api/users/profile");
+      const { data } = res.data;
+      console.log("fuck ittt", res.data);
+      updateUserInfo(data);
+    } catch (error) {
+      console.log("no session found");
+    }
+  };
+
+  useEffect(() => {
+    getUserDetails();
+  }, []);
+
   return (
     <nav className="bg-[#E0F4FB] py-6 px-[1em] md:px-[3em] lg:px-[5em] flex justify-between items-center ">
       <div className="w-[8rem] sm:w-[12.5rem] ">
@@ -21,7 +40,7 @@ const index = () => {
       </div>
 
       <div className="relative">
-        <HambergerMenu open={open} setOpen={setOpen}/>
+        <HambergerMenu open={open} setOpen={setOpen} />
         <div
           className={` justify-between gap-4 md:gap-12 lg:gap-20 
                   text-darkText text-lg sm:text-xl flex-col sm:flex-row ${
@@ -42,9 +61,22 @@ const index = () => {
           <Link className={``} href={"/ride-history"}>
             Your Rides
           </Link>
-          <Link className={``} href={"/auth/register"}>
-            Login / Register
+          {userInfo.email !== "" ? (
+            <>
+            <Link className={``} href={"/user/profile"}>
+              Become Driver
+            </Link>
+            <Link className={``} href={"/cab"}>
+            Add Cab
           </Link>
+          <Link className={``} href={"/user/profile"}>
+          {userInfo.fname}
+        </Link></>
+          ) : (
+            <Link className={``} href={"/auth/register"}>
+              Login / Register
+            </Link>
+          )}
         </div>
       </div>
     </nav>

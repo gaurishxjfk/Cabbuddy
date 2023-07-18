@@ -20,4 +20,37 @@ model User {
   isAdmin   Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  cabOwner  CabOwner[]
+}
+
+model CabOwner {
+  id            Int          @id @default(autoincrement())
+  ownerName     String
+  ownerEmail    String       @unique
+  ownerMobileNo String       @unique
+  ownerAddress  String
+  ownerState    String
+  ownerPincode  String
+  terms         Boolean
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  userId        Int          @default(5)
+  user          User         @relation(fields: [userId], references: [id])
+  cabs          CabDetails[]
+}
+
+model CabDetails {
+  id              Int      @id @default(autoincrement())
+  regNo           String   @unique
+  cabModel        String
+  cabColor        String
+  engineNo        String   @unique
+  seatingCapacity Int
+  fuelType        String
+  cabImage        String?
+  isApproved      Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  ownerId         Int
+  owner           CabOwner @relation(fields: [ownerId], references: [id])
 }

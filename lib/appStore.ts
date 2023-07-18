@@ -1,3 +1,4 @@
+import { appState, userInfo } from "@/Types";
 import { create } from "zustand";
 
 export const ride_history = [
@@ -28,11 +29,51 @@ export const ride_history = [
     ratings: 0,
   },
 ];
-interface appState {
-  isCarModal: boolean;
-  toggleCarModal: () => void;
-}
+
 export const appStore = create<appState>()((set) => ({
   isCarModal: false,
+  isLoggedIn: false,
+  userInfo: { id: 0, fname: "", lname: "", email: "", isAdmin: false },
+  toggleIsLoggedIn: (flag: boolean) => set((state) => ({ isLoggedIn: flag })),
+  updateUserInfo: (data: userInfo) => set((state) => ({ userInfo: data })),
   toggleCarModal: () => set((state) => ({ isCarModal: !state.isCarModal })),
 }));
+
+export const allState = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jammu and Kashmir",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttarakhand",
+  "Uttar Pradesh",
+  "West Bengal",
+  "Andaman and Nicobar Islands",
+  "Chandigarh",
+  "Dadra and Nagar Haveli",
+  "Daman and Diu",
+  "Delhi",
+  "Lakshadweep",
+  "Puducherry",
+];
