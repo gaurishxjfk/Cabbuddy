@@ -5,10 +5,10 @@ import * as Yup from "yup";
 import CustomInput from "@/components/InputComp/CustomInput";
 import CustomDropDown from "@/components/InputComp/CustomDropDown";
 import CustomFileUpload from "@/components/InputComp/CustomFileUpload";
-import { CabFormValues, FileWithSizeAndType } from "@/Types";
-import axios from "axios";
-import { fileToBase64 } from "@/helpers/filetoBcase64";
+import { CabFormValues } from "@/Types";
 import { allState } from "@/lib/appStore";
+import { useRouter } from "next/navigation";
+import { createCab } from "@/services/userApis";
 
 const currentDate = new Date();
 const minDate = new Date(
@@ -20,7 +20,7 @@ const minDate = new Date(
   .split("T")[0];
 
 const page = () => {
-
+  const router = useRouter();
   const formik = useFormik<CabFormValues>({
     initialValues: {
       ownerName: "",
@@ -71,45 +71,40 @@ const page = () => {
         "You must accept the terms and conditions."
       ),
       cabImage: Yup.mixed()
-  .required("Cab image is required")
-  .test("fileSize", "File size must be less than 2MB", function (value) {
-    if (!value) return false;
-    const fileSize = Buffer.byteLength(value as string, 'utf8');
-    return fileSize <= 2 * 1024 * 1024;
-  })
-  .test("fileType", "Only JPEG or PNG file formats are allowed", function (value) {
-    if (!value) return false;
-    const validFileTypes: string[] = ["image/jpeg", "image/png"];
-    let fileType: string | undefined;
-    if ((value as string).startsWith("data:image/jpeg")) {
-      fileType = "image/jpeg";
-    } else if ((value as string).startsWith("data:image/png")) {
-      fileType = "image/png";
-    } else {
-      return false;
-    }
-    return validFileTypes.includes(fileType);
-  }),
-
-
+        .required("Cab image is required")
+        .test("fileSize", "File size must be less than 2MB", function (value) {
+          if (!value) return false;
+          const fileSize = Buffer.byteLength(value as string, "utf8");
+          return fileSize <= 2 * 1024 * 1024;
+        })
+        .test(
+          "fileType",
+          "Only JPEG or PNG file formats are allowed",
+          function (value) {
+            if (!value) return false;
+            const validFileTypes: string[] = ["image/jpeg", "image/png"];
+            let fileType: string | undefined;
+            if ((value as string).startsWith("data:image/jpeg")) {
+              fileType = "image/jpeg";
+            } else if ((value as string).startsWith("data:image/png")) {
+              fileType = "image/png";
+            } else {
+              return false;
+            }
+            return validFileTypes.includes(fileType);
+          }
+        ),
     }),
 
     onSubmit: async (values) => {
-      await handleOnSubmit(values)
+      await createCab(values);
       console.log("form submitted");
+      router.push("/cab");
       console.log(JSON.stringify(values));
     },
   });
 
-  const handleOnSubmit = async (data: CabFormValues) => {
-    try {
-      const response = await axios.post("/api/cab/create", data);
-      console.log("hehehehe", response);
-    } catch (error: any) {
-      console.log("heheheh22e", error.response.data.error);
-    }
-  }
-  console.log(formik.values.cabImage)
+  console.log(formik.values.cabImage);
   return (
     <section>
       <div className="bg-white shadow rounded-lg w-[95%] md:w-[80%] mx-auto p-4 mb-2 text-xl font-semibold text-darkText">

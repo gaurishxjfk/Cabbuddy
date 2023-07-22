@@ -30,9 +30,8 @@ const index = () => {
   };
 
   useEffect(() => {
-    getUserDetails();
+    getUserDetails()
   }, []);
-
   return (
     <nav className="bg-[#E0F4FB] py-6 px-[1em] md:px-[3em] lg:px-[5em] flex justify-between items-center ">
       <div className="w-[8rem] sm:w-[12.5rem] ">
@@ -63,13 +62,14 @@ const index = () => {
           </Link>
           {userInfo.email !== "" ? (
             <>
-            <Link className={``} href={"/user/profile"}>
+            <Link className={``} href={"/driver/profile"
+          }>
               Become Driver
             </Link>
             <Link className={``} href={"/cab"}>
             Add Cab
           </Link>
-          <Link className={``} href={"/user/profile"}>
+          <Link className={``} href={userInfo.isAdmin ? `/admin` :`/user/profile`}>
           {userInfo.fname}
         </Link></>
           ) : (

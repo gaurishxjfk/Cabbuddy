@@ -27,7 +27,7 @@ function AdminSidebar() {
         <label htmlFor="Manage Driver">Manage Driver</label>
       </Link>
       <Link
-        href={"/admin"}
+        href={"/admin/link-cabdriver"}
         className={`flex gap-4 ${
           option === "linkcabdriver" && "font-bold bg-darkText text-white"
         } hover:bg-darkText hover:text-white hover:font-bold transition-all rounded-full p-2 px-4 cursor-pointer`}

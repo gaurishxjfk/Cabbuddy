@@ -124,12 +124,17 @@ export interface adminState {
   totalPages: number;
   currentPage: number;
   cab?: CabDtls;
-  owner?: CabOwner
+  owner?: CabOwner;
+  driver?: DriverDtls;
   cabData: CabDtls[];
+  driverData: DriverDtls[];
   changeOption: (str: string) => void;
   fetchAllCabs: () => Promise<void>;
+  fetchAllDrivers: () => Promise<void>;
   fetchCab: (id: number) => Promise<void>;
   fetchOwner: (id: number) => Promise<void>;
+  fetchDriver: () => Promise<void>;
+  fetchDriverById: (id: number) => Promise<void>;
 }
 
 export interface ManageHeaderProps {
@@ -137,11 +142,16 @@ export interface ManageHeaderProps {
   searchQuery: string;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   btnText: string;
+  href? :string
 }
 
 
 export interface ManageListProps{
   data: CabDtls[];
+}
+
+export interface ManageListDriverProps{
+  data: DriverDtls[];
 }
 
 export interface FileWithSizeAndType extends File {
@@ -171,3 +181,34 @@ id? : number
 }
 
 export type CabFormValues = CabOwner & CabRegDetails;
+
+export interface DriverFormValues {
+  name: string;
+  email: string;
+  licenseNo: string;
+  mobileNo: string;
+  DOB: string;
+  address: string;
+  state: string;
+  pincode: string;
+  terms: boolean;
+  licenseImage: string | null ;
+}
+
+export interface DriverDtls extends DriverFormValues {
+  isApproved?: boolean;
+  id?: number
+}
+
+export interface DriverProfileValues {
+  mobileNo: string;
+  address: string;
+  state: string;
+  pincode: string;
+  profileImage: string | null ;
+}
+
+export interface linkCabDriver {
+  cabId: number;
+  driverId: number; 
+}

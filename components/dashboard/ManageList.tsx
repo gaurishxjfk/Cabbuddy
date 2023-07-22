@@ -5,11 +5,14 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { Eye } from "../SVGIcons";
 import Link from "next/link";
+import { appStore } from "@/lib/appStore";
 
 const ManageList: React.FC<ManageListProps> = ({ data }) => {
   const router = useRouter();
+  const { userInfo } = appStore(state => state)
+
   return (
-    <section className="bg-white ml-5 p-3 rounded-2xl drop-shadow mt-2 ">
+    <section className="bg-white mx-5 p-3 rounded-2xl drop-shadow mt-2 ">
       {data.length < 1 ? (
         <Image
           src={"/assets/loader.svg"}
@@ -64,7 +67,7 @@ const ManageList: React.FC<ManageListProps> = ({ data }) => {
                   </div>
                   <div className="col-span-1 flex justify-between ">
                     <Link
-                      href={`/admin/manage-cabs/cab/${cab.id}`}
+                      href={userInfo.isAdmin ? `/admin/manage-cabs/cab/${cab.id}` : `/cab/${cab.id}`}
                       className="flex items-center gap-2 my-auto cursor-pointer"
                     >
                       <Eye width={20} height={20} fill="#02283F" /> View

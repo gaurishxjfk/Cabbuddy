@@ -2,15 +2,17 @@
 import React, { useEffect as appEffect, useState as appState } from "react";
 import { Search } from "../SVGIcons";
 import { ManageHeaderProps } from "@/Types";
+import Link from "next/link";
 
 const ManageHeader: React.FC<ManageHeaderProps> = ({
   title,
   searchQuery,
   setSearchQuery,
   btnText,
+  href
 }) => {
   return (
-    <section className=" bg-white ml-5  rounded-2xl drop-shadow">
+    <section className=" bg-white mx-5  rounded-2xl drop-shadow">
       <header className="text-darkText w-fit font-bold w- bg-[#E9F9F3] rounded-t-2xl rounded-r-none p-2 px-12">
         {title}
       </header>
@@ -27,9 +29,9 @@ const ManageHeader: React.FC<ManageHeaderProps> = ({
             <Search stroke="#02283F" height={24} width={24} />
           </button>
         </div>
-        <button className="bg-[#E9F9F3] px-3 py-2 rounded-lg font-bold text-darkText">
+        <Link className="bg-[#E9F9F3] px-3 py-2 rounded-lg font-bold text-darkText" href={href ? href : "/"}>
           {btnText}
-        </button>
+        </Link>
       </div>
     </section>
   );

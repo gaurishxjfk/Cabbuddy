@@ -12,15 +12,16 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  fname     String   @db.Text
-  lname     String   @db.Text
-  email     String   @unique
-  password  String   @db.Text
-  isAdmin   Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        Int        @id @default(autoincrement())
+  fname     String     @db.Text
+  lname     String     @db.Text
+  email     String     @unique
+  password  String     @db.Text
+  isAdmin   Boolean    @default(false)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
   cabOwner  CabOwner[]
+  Driver    Driver[]
 }
 
 model CabOwner {
@@ -40,17 +41,47 @@ model CabOwner {
 }
 
 model CabDetails {
-  id              Int      @id @default(autoincrement())
-  regNo           String   @unique
-  cabModel        String
-  cabColor        String
-  engineNo        String   @unique
-  seatingCapacity Int
-  fuelType        String
-  cabImage        String?
-  isApproved      Boolean  @default(false)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  ownerId         Int
-  owner           CabOwner @relation(fields: [ownerId], references: [id])
+  id                  Int                   @id @default(autoincrement())
+  regNo               String                @unique
+  cabModel            String
+  cabColor            String
+  engineNo            String                @unique
+  seatingCapacity     Int
+  fuelType            String
+  cabImage            String?
+  isApproved          Boolean               @default(false)
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  ownerId             Int
+  owner               CabOwner              @relation(fields: [ownerId], references: [id])
+  CabDriverAssignment CabDriverAssignment[]
+}
+
+model Driver {
+  id                  Int                   @id @default(autoincrement())
+  name                String
+  email               String                @unique
+  licenseNo           String
+  mobileNo            String                @unique
+  DOB                 String // Assuming DOB is represented as a string in "YYYY-MM-DD" format
+  address             String
+  state               String
+  pincode             String
+  terms               Boolean
+  licenseImage        String
+  userId              Int                   @default(5)
+  user                User                  @relation(fields: [userId], references: [id])
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  CabDriverAssignment CabDriverAssignment[]
+}
+
+model CabDriverAssignment {
+  id        Int        @id @default(autoincrement())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  cabId     Int
+  driverId  Int
+  cab       CabDetails @relation(fields: [cabId], references: [id])
+  driver    Driver     @relation(fields: [driverId], references: [id])
 }
