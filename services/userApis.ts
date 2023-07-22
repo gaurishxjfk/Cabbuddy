@@ -1,4 +1,4 @@
-import { CabFormValues, DriverDtls, DriverFormValues } from "@/Types";
+import { CabFormValues, DriverDtls, DriverFormValues, linkCabDriver } from "@/Types";
 import axios from "axios";
 
 export const getUserCabs = async () => {
@@ -112,3 +112,13 @@ export const getUserCabs = async () => {
       return null;
     }
   };
+
+  export const createLink = async (data: linkCabDriver) => {
+    try {
+      const response = await axios.post("/api/link/create", data);
+      console.log("hehehehe", response);
+    } catch (error: any) {
+      console.log("heheheh22e", error.response.data.error);
+    }
+  }
+

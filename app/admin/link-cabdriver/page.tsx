@@ -4,6 +4,7 @@ import AdminLayout from "@/components/Admin/AdminLayout";
 import CustomDropDown from "@/components/InputComp/CustomDropDown";
 import { AdminState } from "@/lib/adminStore";
 import { allState } from "@/lib/appStore";
+import { createLink } from "@/services/userApis";
 import { useFormik } from "formik";
 import React, { useEffect as appEffect } from "react";
 import * as Yup from "yup";
@@ -23,8 +24,9 @@ const page = () => {
     }),
 
     onSubmit: async (values) => {
+      await createLink(values)
       console.log("form submitted");
-      console.log(JSON.stringify(values));
+      console.log(values);
     },
   });
   appEffect(() => {
@@ -35,7 +37,7 @@ const page = () => {
   return (
     <AdminLayout>
       <section className="bg-white p-4 ml-2 w-full rounded-xl shadow">
-        <form action="">
+        <form onSubmit={formik.handleSubmit}>
           <div className="flex">
             <CustomDropDown
               label="Select Cab"

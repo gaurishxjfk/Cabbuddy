@@ -54,7 +54,7 @@ model CabDetails {
   updatedAt           DateTime              @updatedAt
   ownerId             Int
   owner               CabOwner              @relation(fields: [ownerId], references: [id])
-  CabDriverAssignment CabDriverAssignment[]
+  CabDriverAssignment CabDriverLink[]
 }
 
 model Driver {
@@ -73,10 +73,10 @@ model Driver {
   user                User                  @relation(fields: [userId], references: [id])
   createdAt           DateTime              @default(now())
   updatedAt           DateTime              @updatedAt
-  CabDriverAssignment CabDriverAssignment[]
+  CabDriverAssignment CabDriverLink[]
 }
 
-model CabDriverAssignment {
+model CabDriverLink {
   id        Int        @id @default(autoincrement())
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
