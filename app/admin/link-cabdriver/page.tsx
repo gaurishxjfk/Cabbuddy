@@ -5,14 +5,14 @@ import CustomDropDown from "@/components/InputComp/CustomDropDown";
 import { AdminState } from "@/lib/adminStore";
 import { allState } from "@/lib/appStore";
 import { createLink } from "@/services/userApis";
-import { useFormik } from "formik";
+import { useFormik as appFormik } from "formik";
 import React, { useEffect as appEffect } from "react";
 import * as Yup from "yup";
 const page = () => {
   const { fetchAllCabs, cabData, fetchAllDrivers, driverData } = AdminState(
     (state) => state
   );
-  const formik = useFormik<linkCabDriver>({
+  const formik = appFormik<linkCabDriver>({
     initialValues: {
       cabId: 0,
       driverId: 0,

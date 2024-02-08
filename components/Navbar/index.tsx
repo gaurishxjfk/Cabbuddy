@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Encode_Sans_Semi_Condensed } from "next/font/google";
-import React, { useEffect, useState } from "react";
+import React, { useEffect as appEffect, useState as appState } from "react";
 
 import cabbuddy from "@/public/assets/icons/cabbuddy.svg";
 import HambergerMenu from "./HambergerMenu";
@@ -16,7 +16,7 @@ const workSans = Encode_Sans_Semi_Condensed({
 
 const index = () => {
   const { updateUserInfo, userInfo } = appStore((state) => state);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = appState(false);
   const getUserDetails = async () => {
     console.log("its goinggg");
     try {
@@ -29,7 +29,7 @@ const index = () => {
     }
   };
 
-  useEffect(() => {
+  appEffect(() => {
     getUserDetails()
   }, []);
   return (

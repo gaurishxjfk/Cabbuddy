@@ -1,17 +1,17 @@
 "use client";
-import React, { useEffect } from "react";
-import { useFormik } from "formik";
+import React, { useEffect as appEffect } from "react";
+import { useFormik as appFormik } from "formik";
 import * as Yup from "yup";
 import { DriverProfileValues, FileWithSizeAndType } from "@/Types";
 import ProfileHeader from "@/components/ManageDriver/Profile/ProfileHeader";
 import EditProfile from "@/components/ManageDriver/Profile/EditProfile";
 import { AdminState } from "@/lib/adminStore";
-import { useRouter } from "next/navigation";
+import { useRouter as appRouter } from "next/navigation";
 
 const page = () => {
-  const router =  useRouter()
+  const router =  appRouter()
   const { fetchDriver, driver } = AdminState(state => state)
-  const formik = useFormik<DriverProfileValues>({
+  const formik = appFormik<DriverProfileValues>({
     initialValues: {
       mobileNo: "",
       address: "",
@@ -52,15 +52,15 @@ const page = () => {
     },
   });
 
-  useEffect(() => {
+  appEffect(() => {
     fetchDriver()
   }, [])
 
-  useEffect(() => {
+  appEffect(() => {
     if(!driver){
       router.push("/driver/register")
     }
-  }, [driver])
+  }, [driver, router])
   return (
     <div
       className=" rounded-lg w-[95%] md:w-[80%] mx-auto p-2 mb-2 

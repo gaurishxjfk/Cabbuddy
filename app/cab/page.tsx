@@ -2,13 +2,14 @@
 import ManageHeader from "@/components/dashboard/ManageHeader";
 import ManageList from "@/components/dashboard/ManageList";
 import { getUserCabs } from "@/services/userApis";
-import React, { useEffect, useState } from "react";
+import React, { useEffect as appEffect, useState as appState } from "react";
 const ride_status = "Pending";
 
 const page = () => {
-  const [userCabsArr, setUserCabsArr] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  useEffect(() => {
+  const [userCabsArr, setUserCabsArr] = appState([]);
+  const [searchQuery, setSearchQuery] = appState("");
+
+  appEffect(() => {
     const fetchData = async () => {
       const { data } = await getUserCabs();
       setUserCabsArr(data);

@@ -57,7 +57,7 @@ const RideHistoryCard: React.FC<RideHistoryCardProps> = ({ rideObj }) => {
         <h2>Ratings</h2>
         <span className="flex">
           {[...Array(5)].map((_, j) => (
-            <span>
+            <span key={j}>
               <Star fill={ratings >= j + 1 ? "#FFD058" : "#BCBCBC"} />
             </span>
           ))}

@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
-import { useFormik } from "formik";
+import { useFormik as appFormik } from "formik";
 import * as Yup from "yup";
 import CustomInput from "@/components/InputComp/CustomInput";
 import CustomDropDown from "@/components/InputComp/CustomDropDown";
 import CustomFileUpload from "@/components/InputComp/CustomFileUpload";
 import { CabFormValues } from "@/Types";
 import { allState } from "@/lib/appStore";
-import { useRouter } from "next/navigation";
+import { useRouter as appRouter } from "next/navigation";
 import { createCab } from "@/services/userApis";
 
 const currentDate = new Date();
@@ -20,8 +20,8 @@ const minDate = new Date(
   .split("T")[0];
 
 const page = () => {
-  const router = useRouter();
-  const formik = useFormik<CabFormValues>({
+  const router = appRouter();
+  const formik = appFormik<CabFormValues>({
     initialValues: {
       ownerName: "",
       ownerEmail: "",

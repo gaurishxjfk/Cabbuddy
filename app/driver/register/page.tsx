@@ -1,23 +1,25 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect as appEffect } from "react";
 import DriverForm from "@/components/ManageDriver/DriverForm";
 import { AdminState } from "@/lib/adminStore";
-import { useRouter } from "next/navigation";
+import { useRouter as appRouter } from "next/navigation";
 
 const page = () => {
-  const router =  useRouter()
-  const { driver,fetchDriver } = AdminState(state => state)
-  useEffect(() => {
-    fetchDriver()
-  }, [])
+  const router = appRouter();
+  const { driver, fetchDriver } = AdminState((state) => state);
+  appEffect(() => {
+    fetchDriver();
+  }, []);
 
-  useEffect(() => {
-    if(driver){
-      router.push("/driver/profile")
+  appEffect(() => {
+    if (driver) {
+      router.push("/driver/profile");
     }
-  }, [driver])
+  }, [driver, router]);
   return (
-    <><DriverForm /></>
+    <>
+      <DriverForm />
+    </>
   );
 };
 
