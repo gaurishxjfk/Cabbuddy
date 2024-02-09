@@ -61,10 +61,14 @@ const page = () => {
               touched={formik.touched.driverId}
               handleChange={formik.handleChange}
               handleBlur={formik.handleBlur}
-              options={driverData.map((driver) => ({
-                value: driver.id,
-                label: `${driver.name} (${driver.licenseNo})`,
+              options={cabData.map((cab) => ({
+                value: cab.id,
+                label: `${cab.cabModel} (${cab.regNo})`,
               }))}
+              // options={driverData.map((driver) => ({
+              //   value: driver.id,
+              //   label: `${driver.name} (${driver.licenseNo})`,
+              // }))}
               className="my-custom-className"
             />
           </div>

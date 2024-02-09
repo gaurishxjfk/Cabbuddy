@@ -15,9 +15,9 @@ export interface CustomFileUploadProps {
   name: string;
   label: string;
   value: string | null;
-  error?: string ;
-  touched?: boolean ;
-  handleChange: (type:string, imgFile: string | undefined) => void;
+  error?: string;
+  touched?: boolean;
+  handleChange: (type: string, imgFile: string | undefined) => void;
   handleBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
   className?: string;
 }
@@ -59,13 +59,26 @@ export interface CustomInputProps {
   placeholder: string;
   value: string;
   type: string;
-  error?: string;
+  error?: string | boolean;
   touched?: boolean;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
+  handleChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  customHandleChange?: (field: string, value: string, error: boolean) => void;
+  handleBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   className?: string;
   max?: string;
+  errormsg?: string;
 }
+
+/*
+
+      label="Email"
+            name="email"
+            value={state.email.value}
+            customHandleChange={handleChange}
+            placeholder="elon@cabbudy.com"
+            type="email"
+            error={state.email.error ? "dd" : "d"}
+            errormsg="Email is required"*/
 
 export interface UserRegisterState {
   fname: registerFormEl;
@@ -112,7 +125,7 @@ export interface CabDtls {
   engineNo: string;
   seatingCapacity: number;
   fuelType: string;
-  cabImage: string ;
+  cabImage: string;
   isApproved: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -142,15 +155,14 @@ export interface ManageHeaderProps {
   searchQuery: string;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   btnText: string;
-  href? :string
+  href?: string;
 }
 
-
-export interface ManageListProps{
+export interface ManageListProps {
   data: CabDtls[];
 }
 
-export interface ManageListDriverProps{
+export interface ManageListDriverProps {
   data: DriverDtls[];
 }
 
@@ -167,17 +179,17 @@ export interface CabOwner {
   ownerState: string;
   ownerPincode: string;
   terms: boolean;
-  id?: number
+  id?: number;
 }
 export interface CabRegDetails {
-regNo: string;
-cabModel: string;
-cabColor: string;
-engineNo: string;
-seatingCapacity: number;
-fuelType: string;
-cabImage: string | null ;
-id? : number
+  regNo: string;
+  cabModel: string;
+  cabColor: string;
+  engineNo: string;
+  seatingCapacity: number;
+  fuelType: string;
+  cabImage: string | null;
+  id?: number;
 }
 
 export type CabFormValues = CabOwner & CabRegDetails;
@@ -192,12 +204,12 @@ export interface DriverFormValues {
   state: string;
   pincode: string;
   terms: boolean;
-  licenseImage: string | null ;
+  licenseImage: string | null;
 }
 
 export interface DriverDtls extends DriverFormValues {
   isApproved?: boolean;
-  id?: number
+  id?: number;
 }
 
 export interface DriverProfileValues {
@@ -205,10 +217,35 @@ export interface DriverProfileValues {
   address: string;
   state: string;
   pincode: string;
-  profileImage: string | null ;
+  profileImage: string | null;
 }
 
 export interface linkCabDriver {
   cabId: number;
-  driverId: number; 
+  driverId: number;
 }
+
+export interface selectOPn {
+  value: number | string;
+  label: string;
+}
+
+export interface CustomDropdownProps {
+  label: string;
+  name: string;
+  value: string | number;
+  error?: string | boolean;
+  touched?: boolean;
+  handleChange: (e: React.ChangeEvent<any>) => void;
+  handleBlur?: (e: React.FocusEvent<any, Element>) => void;
+  options: selectOPn[];
+  className: string;
+}
+
+// error?: string | boolean;
+// touched?: boolean;
+// handleChange: (field: string, value: string, error: boolean) => void;
+// handleBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+// className?: string;
+// max?: string;
+// errormsg?: string;

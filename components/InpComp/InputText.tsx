@@ -11,9 +11,10 @@ const InputText: React.FC<CustomInputProps> = ({
   handleChange,
   className,
   errormsg,
+  customHandleChange
 }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange(name, e.target.value, e.target.value.length === 0);
+    customHandleChange && customHandleChange(name, e.target.value, e.target.value.length === 0);
   };
   return (
     <span className="w-full">

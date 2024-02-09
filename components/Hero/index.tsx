@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect as appEffect, useState as appState } from "react";
 
 import location from "@/public/assets/icons/location.svg";
 import arrow from "@/public/assets/icons/arrow.svg";
@@ -12,15 +12,15 @@ import { appStore } from "@/lib/appStore";
 const index = () => {
   const { toggleCarModal } = appStore(state => state)
 
-  const [destination, setDestination] = useState("");
-  const [togglePickUp, setTogglePickUp] = useState(false);
-  const [pickUp, setPickUp] = useState("");
+  const [destination, setDestination] = appState("");
+  const [togglePickUp, setTogglePickUp] = appState(false);
+  const [pickUp, setPickUp] = appState("");
   const handleSubmit = () => {
     setTogglePickUp(destination.length !== 0);
     (destination.length !== 0 && pickUp.length !== 0) && toggleCarModal()
   };
 
-  useEffect(() => {
+  appEffect(() => {
     if(destination.length === 0){
       setTogglePickUp(false)
       setPickUp("")
@@ -101,7 +101,7 @@ const index = () => {
             className="bg-black text-white relative rounded-full py-3 px-12"
             onClick={() => handleSubmit()}
           >
-            Let's Go
+            Lets Go
             <span className="absolute ml-2">
               <Image src={letsGo} alt="lets go icon" />
             </span>

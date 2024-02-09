@@ -75,20 +75,20 @@ const Login = () => {
             label="Email"
             name="email"
             value={state.email.value}
-            handleChange={handleChange}
+            customHandleChange={handleChange}
             placeholder="elon@cabbudy.com"
             type="email"
-            error={state.email.error}
+            error={state.email.error ? "dd" : "d"}
             errormsg="Email is required"
           />
           <InputText
             label="Password"
             name="password"
             value={state.password.value}
-            handleChange={handleChange}
+            customHandleChange={handleChange}
             placeholder="******"
             type="password"
-            error={state.password.error}
+            error={state.password.error ? "dd" : "d"}
             errormsg="Password should be atleast 6 characters"
           />
         </div>

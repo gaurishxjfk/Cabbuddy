@@ -79,7 +79,7 @@ const Register = () => {
             label="First Name"
             name="fname"
             value={state.fname.value}
-            handleChange={handleChange}
+            customHandleChange={handleChange}
             placeholder="Elon"
             type="text"
             error={state.fname.error}
@@ -90,7 +90,7 @@ const Register = () => {
             label="Last Name"
             name="lname"
             value={state.lname.value}
-            handleChange={handleChange}
+            customHandleChange={handleChange}
             placeholder="Musk"
             type="text"
             error={state.lname.error}
@@ -103,7 +103,7 @@ const Register = () => {
             label="Email"
             name="email"
             value={state.email.value}
-            handleChange={handleChange}
+            customHandleChange={handleChange}
             placeholder="elon@cabbudy.com"
             type="email"
             error={state.email.error}
@@ -115,7 +115,7 @@ const Register = () => {
             label="Password"
             name="password"
             value={state.password.value}
-            handleChange={handleChange}
+            customHandleChange={handleChange}
             placeholder="******"
             type="password"
             error={state.password.error}
@@ -126,7 +126,7 @@ const Register = () => {
             label="Confirm Password"
             name="confirmPassword"
             value={state.confirmPassword.value}
-            handleChange={handleChange}
+            customHandleChange={handleChange}
             placeholder="******"
             type="password"
             error={state.confirmPassword.error}

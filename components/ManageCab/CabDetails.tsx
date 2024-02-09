@@ -66,7 +66,7 @@ const CabDetails = () => {
         cabImage: cab.cabImage,
       });
     }
-  }, [cab]);
+  }, [formik, cab]);
   console.log(formik.values.cabImage, "ce--");
   return (
     <ProtectedRoute>

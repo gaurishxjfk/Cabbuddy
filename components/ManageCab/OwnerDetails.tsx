@@ -68,7 +68,7 @@ const OwnerDetails = () => {
         terms: owner.terms,
       });
     }
-  }, [owner]);
+  }, [owner, formik]);
   return (
     <ProtectedRoute>
       <ManageCab>

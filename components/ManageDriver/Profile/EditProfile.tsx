@@ -86,7 +86,7 @@ const EditProfile = () => {
         licenseImage: driver.licenseImage,
       });
     }
-  }, [driver]);
+  }, [driver, formik]);
   console.log(driver);
   return (
     <section className="">
