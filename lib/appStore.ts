@@ -36,7 +36,7 @@ export const appStore = create<appState>()((set) => ({
   userInfo: { id: 0, fname: "", lname: "", email: "", isAdmin: false },
   toggleIsLoggedIn: (flag: boolean) => set((state) => ({ isLoggedIn: flag })),
   updateUserInfo: (data: userInfo) => set((state) => ({ userInfo: data })),
-  toggleCarModal: () => set((state) => ({ isCarModal: !state.isCarModal })),
+  toggleCarModal: (flag: boolean) => set((state) => ({ isCarModal: flag })),
 }));
 
 export const allState = [

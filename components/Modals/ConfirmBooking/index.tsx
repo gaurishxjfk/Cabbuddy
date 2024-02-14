@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import CabCard from "./CabCard";
 import { Cross } from "@/components/SVGIcons";
 import ConfirmBookingCard from "./ConfirmBookingCard";
@@ -68,14 +68,25 @@ export const emptyCabObj = {
 const ConfirmBooking = () => {
   const [selectedCab, setSelectedCab] = useState<CabObj>(emptyCabObj);
   const {isCarModal, toggleCarModal} = appStore(state => state)
-  console.log(isCarModal)
+
+  const carModal = useRef<HTMLDivElement | null>(null)
+  // const gg = useClickOutside(carModal)
+  // useEffect(() => {
+    
+  //   toggleCarModal(gg)
+  
+   
+  // }, [carModal])
+  
+  
+  // console.log(gg)
   return (
-    <section className=" absolute left-0 right-0 top-0 bottom-0 m-auto z-50  flex justify-center items-center ">
+    <section ref={carModal} className=" absolute left-0 right-0 top-0 bottom-0 m-auto z-50  flex justify-center items-center ">
     <div
       className="bg-darkText absolute z-40 h-fit md:h-[80%] w-[95%] left-0 right-0 top-0 bottom-0 m-auto rounded-md
                     bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-30 shadow-darkText shadow-xl flex items-center "
     >
-      <button className="absolute right-5 top-5" onClick={() => toggleCarModal()}>
+      <button className="absolute right-5 top-5" onClick={() => toggleCarModal(false)}>
         <Cross height={25} width={25} fill="#02283F" />
       </button>
       <div className="mt-16 md:mt-10 w-[100%] flex justify-center items-center">

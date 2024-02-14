@@ -1,5 +1,5 @@
 "use client"
-import Hero from "@/components/Hero";
+import Hero from "@/components/Hero/Hero";
 import ConfirmBooking from "@/components/Modals/ConfirmBooking/";
 import { appStore } from "@/lib/appStore";
 

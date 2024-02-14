@@ -114,7 +114,7 @@ export interface appState {
   isCarModal: boolean;
   isLoggedIn: boolean;
   userInfo: userInfo;
-  toggleCarModal: () => void;
+  toggleCarModal: (flag: boolean) => void;
   updateUserInfo: (data: userInfo) => void;
 }
 export interface CabDtls {
